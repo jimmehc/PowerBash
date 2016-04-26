@@ -1,5 +1,5 @@
 # PowerBash
-![](http://i.imgur.com/Wzkn5Fr.gif)
+<img src="http://i.imgur.com/Wzkn5Fr.gif" width="75%" height="75%"/>
 
 Module which allows you to run bash commands and other Linux programs from the Windows Subsystem for Linux directly from PowerShell, with support for piping to and from PowerShell commands.
 
@@ -41,7 +41,8 @@ Import-Module PowerBash\PowerBash.psm1 3>$null -ArgumentList "sort"
 The function `ConvertTo-LinuxPath` (alias `lxp`) is provided, to allow easier conversion between Windows versions of paths and the Linux equivalents.
 
 For convenience, I've added a PSReadLine key handler for **Alt-L**, which will change Windows paths to Linux paths in place in the console:
-![](http://i.imgur.com/qlqBhJB.gif)
+
+<img src="http://i.imgur.com/qlqBhJB.gif" width="75%" height="75%" />
 
 ## Caveats/Implementation Details
 Essentially, what PowerBash does is locates available Linux programs, and adds a wrapper for each one, which handles pipe input and other arguments, and launches something like `bash.exe -c "$Program $Args < $PipeArgs`.  Note that this incurs the performance overhead of launching a new `bash.exe` process for every command.
