@@ -44,6 +44,8 @@ For convenience, I've added a PSReadLine key handler for **Alt-L**, which will c
 
 <img src="http://i.imgur.com/qlqBhJB.gif" width="75%" height="75%" />
 
+(Note: `ConvertTo-LinuxPath` is a quick and dirty implementation.  It probably doesn't handle all escaping properly.)
+
 ## Caveats/Implementation Details
 Essentially, what PowerBash does is locates available Linux programs, and adds a wrapper for each one, which handles pipe input and other arguments, and launches something like `bash.exe -c "$Program $Args < $PipeArgs`.  Note that this incurs the performance overhead of launching a new `bash.exe` process for every command.
 
