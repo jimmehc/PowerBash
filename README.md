@@ -1,5 +1,5 @@
 # PowerBash
-![](http://i.imgur.com/Wzkn5Fr.gif)
+<img src="http://i.imgur.com/Wzkn5Fr.gif" width="75%" height="75%"/>
 
 Module which allows you to run bash commands and other Linux programs from the Windows Subsystem for Linux directly from PowerShell, with support for piping to and from PowerShell commands.
 
@@ -17,7 +17,7 @@ Import-Module PowerBash\PowerBash.psm1 3>$null
 ```
 
 ## What Commands Are Available?
-PowerBash looks in locations in the Linux Subsystem's filesystem for programs, equivalent to the following $PATH:
+PowerBash looks in locations in the Linux Subsystem's filesystem for programs, equivalent to the following `$PATH`:
 ```
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/gcc/x86_64-linux-gnu/4.8:/usr/games
 ```
@@ -41,10 +41,13 @@ Import-Module PowerBash\PowerBash.psm1 3>$null -ArgumentList "sort"
 The function `ConvertTo-LinuxPath` (alias `lxp`) is provided, to allow easier conversion between Windows versions of paths and the Linux equivalents.
 
 For convenience, I've added a PSReadLine key handler for **Alt-L**, which will change Windows paths to Linux paths in place in the console:
-![](http://i.imgur.com/qlqBhJB.gif)
+
+<img src="http://i.imgur.com/qlqBhJB.gif" width="75%" height="75%" />
+
+(Note: `ConvertTo-LinuxPath` is a quick and dirty implementation.  It probably doesn't handle all escaping properly.)
 
 ## Caveats/Implementation Details
-Essentially, what PowerBash does is locates available Linux programs, and adds a wrapper for each one, which handles pipe input and other arguments, and launches something like `bash.exe -c "$Program $Args < $PipeArgs`.  Note that this incurs the performance overhead of launching a new `bash.exe` process for every command.
+When imported, PowerBash locates available Linux programs, and adds a wrapper for each one.  Each wrapper handles pipe input and other arguments, and launches something like `bash.exe -c "$Program $Args < $PipeArgs"`.  Note that this incurs the performance overhead of launching a new `bash.exe` process for every command.
 
 [This bug](https://github.com/Microsoft/BashOnWindows/issues/2) ([UserVoice page](https://wpdev.uservoice.com/forums/266908-command-prompt-console-bash-on-ubuntu-on-windo/suggestions/13425768-allow-windows-programs-to-spawn-bash)) currently makes it impossible to connect the `bash.exe` process` stdin/stdout/stderr to anything other than the console, which means piping directly to and from it cannot be done.  As a consequence, PowerBash is designed around avoiding any scenario where PowerShell will try to redirect the input or output streams.  
 
