@@ -100,11 +100,8 @@ function Add-BashWrappers
                   {
                       foreach($i in $input)
                       {
-                          if($i -ne "--%")
-                          {
-                              $hasPipeArgs = $true
-                              $allPipeArgs += $i
-                          }
+                          $hasPipeArgs = $true
+                          $allPipeArgs += $i
                       }
                   }
 
@@ -112,7 +109,16 @@ function Add-BashWrappers
                   {
                       try
                       {
-                          $bashCommandStr = "$($app.Path) $args".Trim()
+                          $bashArgs = @()
+                          foreach($a in $args)
+                          {
+                              if($a -ne "--%")
+                              {
+                                  $bashArgs += $a
+                              }
+                          }
+
+                          $bashCommandStr = "$($app.Path) $bashArgs".Trim()
                           if($hasPipeArgs)
                           {
                               $tempStdIn = (New-TemporaryFile).FullName
@@ -159,8 +165,8 @@ function Add-BashWrappers
                           }
                       }
 
-                      if(($args.Length -ge 3 -and $app.Name -eq "sudo" -and $args[0] -eq "apt-get" -and $args[1] -eq "install") -or
-                          ($args.Length -ge 2 -and $app.Name -eq "apt-get" -and $args[2] -eq "install"))
+                      if(($bashArgs.Length -ge 3 -and $app.Name -eq "sudo" -and $bashArgs[0] -eq "apt-get" -and $bashArgs[1] -eq "install") -or
+                          ($bashArgs.Length -ge 2 -and $app.Name -eq "apt-get" -and $bashArgs[0] -eq "install"))
                       {
                           Import-Module $script:thisModulePath -Force -Global 3>$null
                       }
