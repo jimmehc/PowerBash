@@ -11,9 +11,9 @@ Grab the necessary files by cloning this repo:
 git clone https://github.com/jimmehc/PowerBash.git
 ```
 
-And import the PowerBash module (PowerShell doesn't like function names like "apt-get", so redirect the warning stream to $null to avoid that warning message):
+And import the PowerBash module (PowerShell doesn't like function names like "apt-get", so pass the `-DisableNameChecking` switch to avoid that warning message):
 ```
-Import-Module PowerBash\PowerBash.psm1 3>$null
+Import-Module PowerBash\PowerBash.psm1 -DisableNameChecking
 ```
 
 ## What Commands Are Available?
@@ -31,7 +31,7 @@ Remove-Item alias:sort -Force
 ```
 And then import PowerBash, passing `"sort"` to `-ArgumentList`:
 ```
-Import-Module PowerBash\PowerBash.psm1 3>$null -ArgumentList "sort"
+Import-Module PowerBash\PowerBash.psm1 -DisableNameChecking -ArgumentList "sort"
 ```
 
 ### apt-get
