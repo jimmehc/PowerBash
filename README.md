@@ -16,6 +16,12 @@ And import the PowerBash module (PowerShell doesn't like function names like "ap
 Import-Module PowerBash\PowerBash.psm1 -DisableNameChecking
 ```
 
+PowerBash is also available via the [PowerShell Gallery](https://www.powershellgallery.com/):
+```
+Install-Module PowerBash
+Import-Module PowerBash -DisableNameChecking
+```
+
 ## What Commands Are Available?
 PowerBash looks in locations in the Linux Subsystem's filesystem for programs, equivalent to the following `$PATH`:
 ```
